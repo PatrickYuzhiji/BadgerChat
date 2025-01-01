@@ -14,12 +14,13 @@ function BadgerApp() {
   const [chatrooms, setChatrooms] = useState([]);
 
   useEffect(() => {
-    fetch('https://cs571api.cs.wisc.edu/rest/f24/hw6/chatrooms', {
+    fetch('https://cs571.org/rest/f24/hw6/chatrooms', {
       headers: {
-        "X-CS571-ID": CS571.getBadgerId(),
+        "X-CS571-ID": "bid_98c5657e8b78dd46d95d3bfc60ab9ce817f77ae20fbae7eefdf042a344e41552"
       }
     }).then(res => res.json()).then(json => {
       setChatrooms(json)
+      console.log(json)
     })
   }, []);
 
