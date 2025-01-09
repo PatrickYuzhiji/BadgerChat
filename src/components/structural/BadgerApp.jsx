@@ -20,7 +20,6 @@ function BadgerApp() {
       }
     }).then(res => res.json()).then(json => {
       setChatrooms(json)
-      console.log(json)
     })
   }, []);
 
