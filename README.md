@@ -97,9 +97,6 @@ src/
    npm run dev
    ```
 
-4. **Open Your Browser:**  
-   Navigate to `http://localhost:5173` (do not open `index.html` directly).
-
 ## API Integration
 
 All data for BadgerChat is fetched from a live API at `https://cs571api.cs.wisc.edu/rest/f24/hw6/`. The API covers the following endpoints:
@@ -122,7 +119,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-- Inspired and guided by the [CS571 course assignment](API_DOCUMENTATION.md).
+- Inspired and guided by the [CS571 course HW6](README_course.md), and [CS571 course assignment](API_DOCUMENTATION.md).
 - Built with [Vite](https://vitejs.dev/), [React](https://reactjs.org/), and [React Bootstrap](https://react-bootstrap.github.io/).
 
 Enjoy exploring the code and feel free to contribute or reach out for any questions!

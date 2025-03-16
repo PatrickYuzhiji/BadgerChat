@@ -27,8 +27,7 @@ export default function BadgerChatroom(props) {
       {
         method: "GET",
         headers: {
-          "X-CS571-ID":
-            "bid_98c5657e8b78dd46d95d3bfc60ab9ce817f77ae20fbae7eefdf042a344e41552",
+          "X-CS571-ID": "you-need-apply-your-CS571-ID",
         },
       }
     )
@@ -67,8 +66,7 @@ export default function BadgerChatroom(props) {
       method: "POST",
       credentials: "include",
       headers: {
-        "X-CS571-ID":
-          "bid_98c5657e8b78dd46d95d3bfc60ab9ce817f77ae20fbae7eefdf042a344e41552",
+        "X-CS571-ID": "you-need-apply-your-CS571-ID",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -93,8 +91,7 @@ export default function BadgerChatroom(props) {
       method: "DELETE",
       credentials: "include",
       headers: {
-        "X-CS571-ID":
-          "bid_98c5657e8b78dd46d95d3bfc60ab9ce817f77ae20fbae7eefdf042a344e41552",
+        "X-CS571-ID": "you-need-apply-your-CS571-ID",
       },
     }).then((res) => {
       if (res.status === 200) {
