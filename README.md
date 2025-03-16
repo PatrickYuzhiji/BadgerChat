@@ -1,177 +1,128 @@
+# BadgerChat
 
-# CS571-F24 HW6: BadgerChat
+BadgerChat is my personal React application project built as a chat platform where users can interact in various chatrooms. This project showcases my ability to build a full-featured React app using modern tools and libraries like Vite, React Router, and React Bootstrap.
 
-Welcome to BadgerChat! This is your final React assignment that serves as a cumulative assessment of your knowledge and understanding of React. Understanding of React will be crucial for beginning with React Native.
+## Features
 
-For this assignment, you will complete a web application that allows badgers to chat with other badgers via different chatrooms. This assignment works with a *real* API! Please be mindful about what you post as this is a chat server shared by every student in CS571.
+- **User Authentication:**  
+  Users can register, log in, and log out. Authentication is handled by a remote API with proper session management using `sessionStorage` and context.
 
-## BadgerChat
+- **Chatrooms:**  
+  Dynamic chatrooms are retrieved from an API, and navigation links to each chatroom are automatically generated.
 
-The starter code provided to you was generated using [vite](https://vitejs.dev/guide/). Furthermore, [bootstrap](https://www.npmjs.com/package/bootstrap), [react-bootstrap](https://www.npmjs.com/package/react-bootstrap), and [react-router](https://reactrouter.com/en/main) have already been installed. In this directory, simply run...
+- **Posting Messages:**  
+  Authenticated users can post messages in any chatroom. If a user is not logged in, they will see a prompt telling them to log in before posting.
 
-```bash
-npm install
-npm run dev
+- **Message Display & Pagination:**  
+  Messages are fetched for each chatroom and displayed with pagination (four pages with up to 25 messages per page). The design is responsive using React Bootstrap.
+
+- **User-Specific Controls:**  
+  Users can delete only their own posts, with feedback provided for both successful and unsuccessful deletions.
+
+## Technologies Used
+
+- **React:** For building interactive UI components.
+- **Vite:** As the fast build tool and development server.
+- **React Router:** For managing navigation and routing.
+- **React Bootstrap & Bootstrap:** For responsive design and prebuilt UI components.
+- **ESLint:** For maintaining code quality and consistency.
+
+## Project Structure
+
+```
+.eslintrc.cjs
+.gitignore
+API_DOCUMENTATION.md
+index.html
+LICENSE
+package.json
+README.md
+vite.config.js
+_figures/
+  step1.png
+  ...
+public/
+  vite.svg
+src/
+  index.css
+  main.jsx
+  assets/
+    react.svg
+    uw-crest.svg
+  components/
+    auth/
+      BadgerLogin.jsx
+      BadgerLogout.jsx
+      BadgerRegister.jsx
+    content/
+      BadgerChatHome.jsx
+      BadgerChatroom.jsx
+      BadgerMessage.jsx
+      BadgerNoMatch.jsx
+    contexts/
+      BadgerLoginStatusContext.js
+    structural/
+      BadgerApp.jsx
+      BadgerLayout.jsx
 ```
 
-Then, in a browser, open `localhost:5173`. You should *not* open index.html in a browser; React works differently than traditional web programming! When you save your changes, they appear in the browser automatically. I recommend using [Visual Studio Code](https://code.visualstudio.com/) to do your development work.
+- **public/**: Contains static assets including images.
+- **src/**: Contains the main codebase.
+  - **assets/**: Image and asset files.
+  - **components/**: Reusable React components.
+    - **auth/**: Authentication-related components.
+    - **content/**: Chatroom and message display components.
+    - **contexts/**: Context definitions to share login state.
+    - **structural/**: Layout and routing components.
+  - **main.jsx**: The entry point for the React application.
 
-The components you will be working on are located in the `components` folder.
+## Getting Started
 
-All data can be retrieved via API calls to `https://cs571api.cs.wisc.edu/rest/f24/hw6/`. A brief overview of the API is provided below. Please refer to `API_DOCUMENTATION.md` for details.
+1. **Clone the repository:**
 
-All routes are relative to `https://cs571api.cs.wisc.edu/rest/f24/hw6/`
+   ```sh
+   git clone https://github.com/<your-username>/badgerchat.git
+   cd badgerchat
+   ```
 
-| Method | URL | Purpose | Return Codes |
-| --- | --- | --- | --- |
-| `GET`| `/chatrooms` | Get all chatrooms. | 200, 304 |
-| `GET` | `/messages?chatroom=NAME&page=NUM`| Get latest messages for specified chatroom and page. | 200, 400, 404 |
-| `POST` | `/messages?chatroom=NAME` | Posts a message to the specified chatroom. | 200, 400, 404, 413 |
-| `DELETE` | `/messages?id=ID` | Deletes the given message. | 200, 400, 401, 404 |
-| `POST` | `/register` | Registers a user account. | 200, 400, 409, 413  |
-| `POST` | `/login` | Logs a user in. | 200, 400, 401 |
-| `POST` | `/logout` | Logs the current user out. | 200 |
-| `GET` | `/whoami` | Gets details about the currently logged in user. | 200 |
+2. **Install Dependencies:**
 
-When making API calls with a request body, don't forget to include the header `"Content-Type": "application/json"`. If the request requires credentials to be used *or* set, the fetch should have an option of `credentials: "include"`.
+   ```sh
+   npm install
+   ```
 
-## Important
+3. **Run the Development Server:**
 
- - The screenshots below are just an example; the names of chatrooms and posts will change from semester to semester.
- - Usernames *are not* case-sensitive; this is just an FYI!
- - Chatroom names are guaranteed to be unique.
- - Each post has an `id` which is guaranteed to be unique.
+   ```sh
+   npm run dev
+   ```
 
-### 1. Display Chatrooms
+4. **Open Your Browser:**  
+   Navigate to `http://localhost:5173` (do not open `index.html` directly).
 
-Some work has already been done for you! In `BadgerApp.jsx`, we create the *routes* for each chatroom, e.g. `chatrooms/Buckys Badger Den`. However, you need to *display* navigation links for each route.
+## API Integration
 
-In the `NavDropdown` within `BadgerLayout.jsx`, create `NavDropdown.Item` [(docs)](https://react-bootstrap.netlify.app/docs/components/navs#using-dropdowns) for each chatroom underneath the "Chatrooms". You can add `as={Link}` to make the dropdown item act as a link. Refer to HW5 for an example of how this is done.
+All data for BadgerChat is fetched from a live API at `https://cs571api.cs.wisc.edu/rest/f24/hw6/`. The API covers the following endpoints:
 
-![](_figures/step1.png)
+- **Chatrooms:** `GET /chatrooms`
+- **Messages:**
+  - `GET /messages?chatroom=NAME&page=NUM`
+  - `POST /messages?chatroom=NAME`
+  - `DELETE /messages?id=ID`
+- **User Registration:** `POST /register`
+- **User Login:** `POST /login`
+- **User Logout:** `POST /logout`
+- **Who Am I:** `GET /whoami`
 
-### 2. Display Badger Messages
+Make sure to include the necessary headers like `X-CS571-ID` and `Content-Type: application/json` (and the `credentials: "include"` option when required).
 
-In `BadgerChatroom.jsx`, fetch the data for the first page of messages and display them as `BadgerMessage` components.
+## License
 
-`BadgerMessage` takes four props: `title`, `poster`, `content`, and `created`. Don't forget to specify a unique `key`! If there are no messages on this page, display text stating "There are no messages on  this page yet." It is okay for this text to appear if you are still loading messages.
+This project is licensed under the [MIT License](LICENSE).
 
-Be sure to use [react-bootstrap](https://www.npmjs.com/package/react-bootstrap) to make your design responsive! There are no strict requirements for which breakpoints to use, but your design should display more columns on larger devices. Try resizing your window to test this.
+## Acknowledgements
 
-**Note:** This is a public forum, so you do not need to be logged in to read messages!
+- Inspired and guided by the [CS571 course assignment](API_DOCUMENTATION.md).
+- Built with [Vite](https://vitejs.dev/), [React](https://reactjs.org/), and [React Bootstrap](https://react-bootstrap.github.io/).
 
-![](_figures/step2.png)
-
-### 3. Use Pagination
-
-In `BadgerChatroom.jsx`, add four `Pagination.Item` to the bottom of the screen. Adjust your code from Step 2 so that when the user is on page 1, the first page of results is shown; when the user is on page 2, the second page of results is shown, and so on. Not all pages may be populated, in this case simply display "There are no messages on  this page yet."
-
-The active page should appear blue. You may hardcode the four `Pagination.Item`. You do *not* need next or previous buttons.
-
-**Note:** The BadgerChat API will save up to the latest 100 messages divided among these 4 pages; each page will contain up to 25 messages. 
-
-![](_figures/step3.png)
-
-### 4. Allow Registration
-
-In `BadgerRegister.jsx`, create a form using **controlled** input components that allows a user to create a username, pin, and confirm their pin. Upon clicking a "Register" button, a `POST` should be performed to create the user via the API.
-
-Both the pin and confirmation pin [must be masked](https://react-bootstrap.netlify.app/docs/forms/form-control#readonly-plain-text) and **NOT** shown in plaintext.
-
-*Before* performing the API call you should handle the following cases...
- - If the pin or repeated pin is not exactly 7-digits, inform the user "Your pin must be a 7-digit number!". You can use the regex `/^\d{7}$/` to test this.
- - If the user does not enter a username or pin, display an `alert` saying "You must provide both a username and pin!"
- - If the user enters a pin and pin confirmation that do not match, display an `alert` saying "Your pins do not match!" You can check this by comparing the fields *before* interacting with the API.
-
-*After* receiving a response from the API, you should handle the following cases...
-  - If the username is already taken, display an `alert` saying "That username has already been taken!"
-
-If the registration was successful, `alert` the user that the registration was successful.
-
-You do not need to handle any other user input failures. We will expand on the requirements of this step in Step 6.
-
-**Hint:** Don't forget the fetch option to include credentials!
-
-![](_figures/step4.png)
-
-### 5. Allow Login
-
-In `BadgerLogin.jsx`, create a form using **uncontrolled** input components that allows a user to enter their username and pin. Upon clicking a "Login" button, a `POST` should be performed to authenticate the user via the API.
-
-The pin [must be masked](https://react-bootstrap.netlify.app/docs/forms/form-control#readonly-plain-text) and **NOT** shown in plaintext.
-
-*Before* performing the API call you should handle the following cases...
- - If the pin is not exactly 7-digits, inform the user "Your pin is a 7-digit number!". You can use the regex `/^\d{7}$/` to test this.
- - If the user does not enter a username or pin, display an `alert` saying "You must provide both a username and pin!"
-
-*After* receiving a response from the API, you should handle the following cases...
-  - If the username or pin is incorrect, display an `alert` saying "Incorrect username or pin!"
-
-If the login was successful, `alert` the user that the login was successful.
-
-You do not need to handle any other user input failures. We will expand on the requirements of this step in Step 6.
-
-**Hint:** Don't forget the fetch option to include credentials!
-
-![](_figures/step5.png)
-
-### 6. Managing Logged In State
-
-Upon receiving a successful `200` response for register or login (and alerting the user), the user should be automatically navigated back to the home page using react-router's `useNavigate` hook. Furthermore, they should *no longer* see "Login" and "Register" Nav links -- they should only see a "Logout" Nav link. Similarly, when a user is logged out they should only see "Login" and "Register" Nav links; not "Logout".
-
-Refreshing the page should **not** affect the user's logged-in state. **Only** (1) *closing* the browser tab or (2) the 1-hour session expiring, should result in a user having to log in again. You do not have to handle this second case.
-
-To achieve this, you will likely use some combination of context and `sessionStorage`. I have created a context for you in `BadgerLayout.jsx` that provides all children, grandchildren, etc. with the tuple `[loginStatus, setLoginStatus]`, e.g.
-
-```js
-const [loginStatus, setLoginStatus] = useContext(BadgerLoginStatusContext);
-```
-
-You may use `loginStatus` to track whether the user is logged in, their username, or whatever other data you find relevant. **Be sure to persist all changes to `sessionStorage`**
-
-Again, you do *not* need to account for the user's 1-hour `badgerchat_auth` expiring when determing whether or not a user is logged in. Assume the user will close their browser tab or logout within their hour session.
-
-Remember that you do *not* have access to the `badgerchat_auth` cookie as it is HTTPOnly -- you will need to use context and `sessionStorage` to solve this problem.
-
-![](_figures/step6.png)
-
-### 7. Logout
-
-When the user navigates to the logout page, defined by `BadgerLogout.jsx`, they should be logged out of the application. Once again, some of the work has been done for you, but you will need to specify your `X-CS571-ID`. Based on your implementation of Step 6, you will also need to change your context and/or `sessionStorage`.
-
-![](_figures/step7.png)
-
-### 8. Create Posts
-
-In `BadgerChatroom.jsx`, allow an authenticated user to create posts. If the user is not yet authenticated, display a message that says "You must be logged in to post!" Otherwise, the user should be able to make a post through a form with a post title, post content, and a create post button. You may choose whether you want to use **controlled** or **uncontrolled** input components.
-
-*Before* performing the API call you should handle the following cases...
- - If the user does not enter a title or content, display an `alert` saying "You must provide both a title and content!"
-
-*After* performing the API call you should `alert` the user that they have "Successfully posted!" and you should reload the latest messages.
-
-You do not need to handle any other user input failures.
-
-**Hint:** Don't forget the fetch option to include credentials!
-
-![](_figures/step8.png)
-
-### Step 9: Delete Posts
-
-Add the option for a user to delete *their own* posts. A red "Delete" button should be shown for each post that a user owns (but not for others' posts).
-
-*After* performing the API call you should `alert` the user that they have "Successfully deleted the post!" and you should reload the latest messages.
-
-This likely will require the child component `BadgerMessage.jsx` to talk back to its parent component `BadgerChatroom.jsx`; I would recommend passing a callback from parent to child component.
-
-**Hint:** Don't forget the fetch option to include credentials!
-
-![](_figures/step9.png)
-
-### Step 10: Providing for Accessibility
-
-Go back and be sure that each `input` has an `id` associated with the `htmlFor` of a `label`. If you are using [react-bootstrap](https://www.npmjs.com/package/react-bootstrap) components, be sure each `Form.Control` has an `id` associated with the `htmlFor` of a `Form.Label`. [Read more here.](https://react.dev/reference/react-dom/components/input#providing-a-label-for-an-input)
-
-### Done! 🥳
-
-Congrats! Add, commit, and push your files to GitHub Classroom and paste your commit hash in the Canvas assignment.
+Enjoy exploring the code and feel free to contribute or reach out for any questions!
