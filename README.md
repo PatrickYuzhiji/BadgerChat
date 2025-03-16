@@ -2,6 +2,10 @@
 
 BadgerChat is my personal React application project built as a chat platform where users can interact in various chatrooms. This project showcases my ability to build a full-featured React app using modern tools and libraries like Vite, React Router, and React Bootstrap.
 
+**This project is inspired and guided by the CS571 course (https://cs571.org/) HW6 , one of the best open source online courses about React and React Native. CS571 @ UW-Madison is co-taught by Cole Nelson and Yaxin Hu.**
+
+When making API requests, you have to apply your own API key ID from https://cs571.org/. A Badger ID (a unique ID representing you) is needed; you can get one by visiting the BadgerAuth Center.
+
 ## Features
 
 - **User Authentication:**  
